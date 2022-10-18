@@ -10,12 +10,22 @@ espacio entre palabra y palabra.
 
 """
 import pandas as pd
+import re
 
 
 def ingest_data():
+    list = []
+    with open("clusters_report.txt", "r") as text:
+        list = text.readlines()
 
-    #
-    # Inserte su código aquí
-    #
+    #Elimina el nombre de las columnas
+    for line in list[4:]:
+        #Si la linea empieza con espacio seguido de un numero
+        if (re.match(r"^ +\d", line)):
+            pass
 
-    return df
+        elif (re.match(r"^ +[a-z]", line)):
+            print(line)
+
+if __name__ == "__main__":
+    ingest_data()
