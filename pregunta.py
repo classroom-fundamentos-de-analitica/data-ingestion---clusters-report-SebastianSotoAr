@@ -37,7 +37,8 @@ def ingest_data():
         #Si la linea empieza con espacios seguidos letras
         elif (re.match(r"^ +[a-z]", line)):
             palabras = line.split()
-            fila[3] += " " + " ".join(palabras)
+            palabras = " ".join(palabras)
+            fila[3] += " " + palabras
             print(fila)
 
         #Si la linea solo tiene espaciado
