@@ -9,6 +9,7 @@ espacio entre palabra y palabra.
 
 
 """
+import pprint
 import pandas as pd
 import re
 
@@ -36,7 +37,7 @@ def ingest_data():
         #Si la linea empieza con espacios seguidos letras
         elif (re.match(r"^ +[a-z]", line)):
             palabras = line.split()
-            fila[3] += " ".join(palabras)
+            fila[3] += " " + " ".join(palabras)
             print(fila)
 
         #Si la linea solo tiene espaciado
@@ -49,4 +50,4 @@ def ingest_data():
     return df
 
 if __name__ == "__main__":
-    print(ingest_data())
+    pprint(ingest_data())
