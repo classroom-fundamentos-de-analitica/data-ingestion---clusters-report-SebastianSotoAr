@@ -42,6 +42,7 @@ def ingest_data():
         #Si la linea solo tiene espaciado
         elif (re.match(r"^\s+$", line)):
             tabla.append(fila.copy())
+            fila[3] = fila[3].replace(".", "")#Elimina el punto
             fila = [0, 0, 0.0, ""]
 
     df = pd.DataFrame (tabla, columns = ['cluster', 'cantidad_de_palabras_clave', 'porcentaje_de_palabras_clave', 'principales_palabras_clave'])
