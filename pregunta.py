@@ -18,14 +18,34 @@ def ingest_data():
     with open("clusters_report.txt", "r") as text:
         list = text.readlines()
 
+    tabla = []
+    fila = [0, 0, 0.0, ""]
+
     #Elimina el nombre de las columnas
     for line in list[4:]:
-        #Si la linea empieza con espacio seguido de un numero
+        #Si la linea empieza con espacios seguidos de un numero
         if (re.match(r"^ +\d", line)):
-            pass
+            numero, cantidad, porcentaje, *palabras = line.split()#Elimina todos los espacios
+            palabras.pop(0)#Elimina el %
+            fila[0] = int(numero)
+            fila[1] = int(cantidad)
+            fila[2] = float(porcentaje.replace(",","."))
+            fila[3] = " ".join(palabras)
+            print(fila)
 
+        #Si la linea empieza con espacios seguidos letras
         elif (re.match(r"^ +[a-z]", line)):
-            print(line)
+            palabras = line.split()
+            fila[3] += " ".join(palabras)
+            print(fila)
+
+        #Si la linea solo tiene espaciado
+        elif (re.match(r"^\s+$", line)):
+            tabla.append(fila.copy())
+            fila = [0, 0, 0.0, ""]
+
+    df = pd.DataFrame (tabla, columns = ['cluster', 'cantidad_de_palabras_clave', 'porcentaje_de_palabras_clave', 'principales_palabras_clave'])
+    return df
 
 if __name__ == "__main__":
-    ingest_data()
+    print(ingest_data())
