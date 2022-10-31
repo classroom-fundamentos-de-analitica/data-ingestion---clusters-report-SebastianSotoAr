@@ -32,23 +32,21 @@ def ingest_data():
             fila[1] = int(cantidad)
             fila[2] = float(porcentaje.replace(",","."))
             fila[3] = " ".join(palabras)
-            print(fila)
 
         #Si la linea empieza con espacios seguidos letras
         elif (re.match(r"^ +[a-z]", line)):
             palabras = line.split()
             palabras = " ".join(palabras)
             fila[3] += " " + palabras
-            print(fila)
 
         #Si la linea solo tiene espaciado
         elif (re.match(r"^\s+$", line)):
-            tabla.append(fila.copy())
             fila[3] = fila[3].replace(".", "")#Elimina el punto
+            tabla.append(fila.copy())
             fila = [0, 0, 0.0, ""]
 
     df = pd.DataFrame (tabla, columns = ['cluster', 'cantidad_de_palabras_clave', 'porcentaje_de_palabras_clave', 'principales_palabras_clave'])
     return df
 
 if __name__ == "__main__":
-    pprint(ingest_data())
+    print(ingest_data())
